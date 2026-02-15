@@ -1,0 +1,23 @@
+name: Security Scans
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Uruchomienie w każdy poniedziałek o północy
+  workflow_dispatch:     # Możliwość ręcznego uruchomienia
+  pull_request:
+    branches: [ main ]
+jobs:
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: high
+          base-ref: ${{ github.event.pull_request.base.sha }}
+          head-ref: ${{ github.event.pull_request.head.sha }}
