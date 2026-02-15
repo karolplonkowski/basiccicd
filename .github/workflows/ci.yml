@@ -63,3 +63,4 @@ jobs:
             echo "Aplikacja jest zmęczona, szefie."
             exit 1
           fi
+#Janusz to stan umysłu, a ni cecha charakteru.
